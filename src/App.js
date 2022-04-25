@@ -9,6 +9,14 @@ import Counter from "./components/Counter";
 // Each FRC must return a single tag/element
 
 // App handles the state, and state modification
+
+// 1. Allow a user to create, edit, and delete memos
+// 2. Each memo shall have:
+//    a. title
+//    b. date that it was created
+//    c. description (the actual memo)
+//    d. complete/not-complete
+// 3. Authenticate the user
 export function App({loggedInInit = false, _Login = Login, _Counter = Counter}) {
     // useState returns an array with 2 elements
     // The first element is the current value
