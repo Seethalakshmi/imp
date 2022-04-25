@@ -12,7 +12,7 @@ import {App} from './App';
 // Is this a unit test? no, it is a units test
 test('should display the counter component when logged in', () => {
   const mock = () => <>This is the expected count</>
-  render(<App loggedInInit={true} _Counter={mock}/>);
+  render(<App loggedInInit={true} _Memos={mock}/>);
   const h1 = screen.getByText(/This is the expected count/)
   expect(h1).toBeInTheDocument()
 });

@@ -1,7 +1,7 @@
 import './App.css';
 import {useState} from "react";
 import Login from "./components/Login";
-import Counter from "./components/Counter";
+import Memos from "./components/Memos";
 
 // All 'Functional React Components' are render functions
 // This function is called every time we want to render our
@@ -17,17 +17,16 @@ import Counter from "./components/Counter";
 //    c. description (the actual memo)
 //    d. complete/not-complete
 // 3. Authenticate the user
-export function App({loggedInInit = false, _Login = Login, _Counter = Counter}) {
+export function App({loggedInInit = false, _Login = Login, _Memos = Memos}) {
     // useState returns an array with 2 elements
     // The first element is the current value
     // The second element is a function that we can call
     //    to update the value
-    const [count, setCount] = useState(0)
+    const [memos, setMemos] = useState([
+        {title: 'Title 1', date: new Date(), description: 'Desc 1', complete: false},
+        {title: 'Title 2', date: new Date(), description: 'Desc 2', complete: true}
+    ])
     const [isLoggedIn, setIsLoggedIn] = useState(loggedInInit)
-
-    function handleClick() {
-        setCount(count + 1)
-    }
 
     function handleLogin(credentials) {
         if (credentials.username === 'madison' &&
@@ -36,7 +35,7 @@ export function App({loggedInInit = false, _Login = Login, _Counter = Counter}) 
     }
 
     if (isLoggedIn)
-        return <_Counter number={count} onIncrement={handleClick}/>
+        return <_Memos memos={memos}/>
     else
         return <_Login onLogin={handleLogin}/>
 }
