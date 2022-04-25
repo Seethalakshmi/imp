@@ -1,12 +1,15 @@
 import './App.css';
 import {useState} from "react";
 import Login from "./components/Login";
+import Counter from "./components/Counter";
 
 // All 'Functional React Components' are render functions
 // This function is called every time we want to render our
 //    application
 // Each FRC must return a single tag/element
-export function App({loggedInInit = false, _Login = Login}) {
+
+// App handles the state, and state modification
+export function App({loggedInInit = false, _Login = Login, _Counter = Counter}) {
     // useState returns an array with 2 elements
     // The first element is the current value
     // The second element is a function that we can call
@@ -25,11 +28,7 @@ export function App({loggedInInit = false, _Login = Login}) {
     }
 
     if (isLoggedIn)
-        return <>
-            <h1>This is the main App</h1>
-            <h1>The count is {count}</h1>
-            <button onClick={handleClick}>Hello</button>
-        </>
+        return <_Counter number={count} onIncrement={handleClick}/>
     else
         return <_Login onLogin={handleLogin}/>
 }
