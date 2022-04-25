@@ -6,13 +6,13 @@ import Login from "./components/Login";
 // This function is called every time we want to render our
 //    application
 // Each FRC must return a single tag/element
-export function App(properties) {
+export function App({loggedInInit = false, _Login = Login}) {
     // useState returns an array with 2 elements
     // The first element is the current value
     // The second element is a function that we can call
     //    to update the value
     const [count, setCount] = useState(0)
-    const [isLoggedIn, setIsLoggedIn] = useState(properties.loggedInInit ? properties.loggedInInit : false)
+    const [isLoggedIn, setIsLoggedIn] = useState(loggedInInit)
 
     function handleClick() {
         setCount(count + 1)
@@ -31,7 +31,7 @@ export function App(properties) {
             <button onClick={handleClick}>Hello</button>
         </>
     else
-        return <Login onLogin={handleLogin}/>
+        return <_Login onLogin={handleLogin}/>
 }
 
 export default App;

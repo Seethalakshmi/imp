@@ -20,12 +20,10 @@ test('should display the main app when logged in', () => {
   expect(btn).toBeInTheDocument()
 });
 
+// This is a unit test
 test('should display the login screen when logged out', () => {
-  render(<App/>);
-  const usernameElement = screen.getByPlaceholderText(/Username/);
-  expect(usernameElement).toBeInTheDocument();
-  const passwordElement = screen.getByPlaceholderText(/Password/);
-  expect(passwordElement).toBeInTheDocument();
-  const loginButton = screen.getByText(/Login/);
-  expect(loginButton).toBeInTheDocument();
+  const mockLogin = () => <>This is the expected text</>
+  render(<App _Login={mockLogin}/>);
+  const element = screen.getByText(/This is the expected text/);
+  expect(element).toBeInTheDocument();
 });
