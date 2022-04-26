@@ -3,15 +3,15 @@
 import Memo from "./Memo";
 
 // [
-//     {title: 'Title1', description: 'Desc1', date: new Date(), complete: false},
-//     {title: 'Title2', description: 'Desc2', date: new Date(), complete: true}
+//     'memo1',
+//     'memo2'
 // ]
 //
 // .map()
 //
 // [
-//     <Memo title={'Title1'} date={new Date()} description={'Desc1'} complete={false}/>,
-//     <Memo title={'Title2'} date={new Date()} description={'Desc2'} complete={true}/>
+//     <div>memo1</div>,
+//     <div>memo2</div>
 // ]
 
 export default function Memos({memos, _Memo=Memo}) {
