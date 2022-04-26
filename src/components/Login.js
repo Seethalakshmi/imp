@@ -2,6 +2,7 @@
 //    properties that are passed into this
 //    component
 import {useState} from "react";
+import {Button, Form} from "react-bootstrap";
 
 function Login(properties) {
     const [username, setUsername] = useState('')
@@ -19,11 +20,18 @@ function Login(properties) {
         setPassword(event.target.value)
     }
 
-    return <>
-        <input type='text' placeholder='Username' onChange={onUsernameChange}/>
-        <input type='text' placeholder='Password' onChange={onPasswordChange}/>
-        <button onClick={sendCredentials}>Login</button>
-    </>
+    return <Form>
+        <Form.Group>
+            <Form.Control type='text' placeholder='Username' onChange={onUsernameChange}></Form.Control>
+        </Form.Group>
+
+        <Form.Group>
+            <Form.Control type='text' placeholder='Password' onChange={onPasswordChange}></Form.Control>
+        </Form.Group>
+
+        {/*<button onClick={sendCredentials}>Login</button>*/}
+        <Button variant={"primary"} onClick={sendCredentials}>Login</Button>
+    </Form>
 }
 
 export default Login

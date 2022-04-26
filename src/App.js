@@ -48,7 +48,7 @@ export function App({loggedInInit = false, _Login = Login, _Memos = Memos}) {
     if (isLoggedIn)
         return <_Memos memos={memos} onDelete={deleteMemo}/>
     else
-        return <_Login onLogin={handleLogin}/>
+        return <_Login sytle={{backgroundColor: 'red'}} onLogin={handleLogin}/>
 }
 
 export default App;
