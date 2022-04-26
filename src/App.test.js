@@ -18,16 +18,23 @@ test('should display the counter component when logged in', () => {
     return <>This is the expected count</>
   }
 
-  render(<App loggedInInit={true} _Memos={mock}/>);
+  const noText = 'NONONO'
+  const nonono = () => <>{noText}</>
+
+  render(<App loggedInInit={true} _Memos={mock} _Login={nonono}/>);
   const h1 = screen.getByText(/This is the expected count/)
   expect(h1).toBeInTheDocument()
   expect(_memos).toBeDefined()
+  expect(screen.queryByText(noText)).not.toBeInTheDocument()
 });
 
 // This is a unit test
 test('should display the login screen when logged out', () => {
   const mockLogin = () => <>This is the expected text</>
-  render(<App _Login={mockLogin}/>);
+  const noText = 'NONONO'
+  const nonono = () => <>{noText}</>
+  render(<App _Login={mockLogin} _Memos={nonono}/>);
   const element = screen.getByText(/This is the expected text/);
   expect(element).toBeInTheDocument();
+  expect(screen.queryByText(noText)).not.toBeInTheDocument()
 });
