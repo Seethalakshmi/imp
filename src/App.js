@@ -47,7 +47,9 @@ export function App({loggedInInit = false, _Login = Login, _Memos = Memos}) {
     }
 
     if (isLoggedIn)
-        return <_Memos memos={memos} onDelete={deleteMemo}/>
+        return <div>
+            <_Memos memos={memos} onDelete={deleteMemo}/>
+        </div>
     else
         return <div className={'d-flex justify-content-center'}>
             <_Login onLogin={handleLogin}/>

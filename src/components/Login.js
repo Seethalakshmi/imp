@@ -20,12 +20,17 @@ function Login(properties) {
         setPassword(event.target.value)
     }
 
+    function handleSubmit(event) {
+        event.preventDefault();
+        sendCredentials();
+    }
+
     return <Card>
         <Card.Header className={'text-center'}>
             <h3>Login</h3>
         </Card.Header>
         <Card.Body>
-            <Form>
+            <Form onSubmit={handleSubmit}>
                 <Form.Group className={'m-1'}>
                     <Form.Label>Username</Form.Label>
                     <Form.Control type='text' placeholder='Username' onChange={onUsernameChange}></Form.Control>
@@ -37,7 +42,7 @@ function Login(properties) {
                 </Form.Group>
 
                 <Row className={'p-3'}>
-                    <Button variant={"primary"} onClick={sendCredentials}>Submit</Button>
+                    <Button type={'submit'} variant={"primary"}>Submit</Button>
                 </Row>
             </Form>
         </Card.Body>

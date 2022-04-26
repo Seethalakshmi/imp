@@ -1,18 +1,27 @@
 // Display a single memo
-
-import {Card} from "react-bootstrap";
+import {Badge, Button, Card, Col, Row} from "react-bootstrap";
 
 export default function Memo({memo, onDelete}) {
     const {id, title, date, description, complete} = memo
-    return <Card>
+    return <Card className={'test'}>
         <Card.Header>
-            <h3>{title}</h3>
+            <h3 className={'d-flex justify-content-between'}>
+                {title}
+                <span>{date.toDateString()}</span>
+            </h3>
         </Card.Header>
+
         <Card.Body>
-            <h5>{date.toDateString()}</h5>
             <h5>{description}</h5>
-            <h5>{complete ? 'Complete' : 'To Do'}</h5>
-            <button onClick={() => onDelete(id)}>Delete</button>
         </Card.Body>
+
+        <Card.Footer>
+            <div className={'d-flex justify-content-between'}>
+                <Button variant={"outline-danger"} onClick={() => onDelete(id)}>Delete</Button>
+                <Badge bg={complete ? 'secondary' : 'success'} className={'d-flex flex-column justify-content-center w-25'}>
+                    {complete ? 'Complete' : 'To Do'}
+                </Badge>
+            </div>
+        </Card.Footer>
     </Card>
 }
