@@ -14,9 +14,9 @@ import Memo from "./Memo";
 //     <div>memo2</div>
 // ]
 
-export default function Memos({memos, _Memo=Memo}) {
+export default function Memos({memos, onDelete, _Memo=Memo}) {
     return <>
         {/*transform the memos array into a list of react components*/}
-        {memos.map((memo, index) => <_Memo key={index} memo={memo}/>)}
+        {memos.map((memo, index) => <_Memo key={index} memo={memo} onDelete={onDelete}/>)}
     </>
 }

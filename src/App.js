@@ -23,10 +23,21 @@ export function App({loggedInInit = false, _Login = Login, _Memos = Memos}) {
     // The second element is a function that we can call
     //    to update the value
     const [memos, setMemos] = useState([
-        {title: 'Title 1', date: new Date(), description: 'Desc 1', complete: false},
-        {title: 'Title 2', date: new Date(), description: 'Desc 2', complete: true}
+        {id: 0, title: 'Title 1', date: new Date(), description: 'Desc 1', complete: false},
+        {id: 1, title: 'Title 2', date: new Date(), description: 'Desc 2', complete: true},
+        {id: 2, title: 'Title 3', date: new Date(), description: 'Desc 3', complete: true}
     ])
     const [isLoggedIn, setIsLoggedIn] = useState(loggedInInit)
+
+    // In order to delete, we need to remove a specific element from
+    //     our memos state
+    // we need to rerender
+
+    // Take some identifier and use that ID to delete the memo
+    function deleteMemo(memoID) {
+        const newMemos = memos.filter(memo => memo.id !== memoID)
+        setMemos(newMemos)
+    }
 
     function handleLogin(credentials) {
         if (credentials.username === 'madison' &&
@@ -35,7 +46,7 @@ export function App({loggedInInit = false, _Login = Login, _Memos = Memos}) {
     }
 
     if (isLoggedIn)
-        return <_Memos memos={memos}/>
+        return <_Memos memos={memos} onDelete={deleteMemo}/>
     else
         return <_Login onLogin={handleLogin}/>
 }

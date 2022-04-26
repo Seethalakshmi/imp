@@ -12,10 +12,12 @@ import {App} from './App';
 // Is this a unit test? no, it is a units test
 test('should display the counter component when logged in', () => {
   let _memos = undefined
+  let _onDelete = undefined
   const expectedText = 'This is the expected text'
 
-  const mock = ({memos}) => {
+  const mock = ({memos, onDelete}) => {
     _memos = memos
+    _onDelete = onDelete
     return <>{expectedText}</>
   }
 
@@ -25,8 +27,9 @@ test('should display the counter component when logged in', () => {
   render(<App loggedInInit={true} _Memos={mock} _Login={nonono}/>);
   const h1 = screen.getByText(expectedText)
   expect(h1).toBeInTheDocument()
-  expect(_memos).toBeDefined()
+  expect(typeof _memos).toBe('object')
   expect(screen.queryByText(noText)).not.toBeInTheDocument()
+  expect(typeof _onDelete).toBe('function')
 });
 
 // This is a unit test
