@@ -2,6 +2,7 @@ import './App.css';
 import {useState} from "react";
 import Login from "./components/Login";
 import Memos from "./components/Memos";
+import {Col, Row} from "react-bootstrap";
 
 // All 'Functional React Components' are render functions
 // This function is called every time we want to render our
@@ -48,7 +49,7 @@ export function App({loggedInInit = false, _Login = Login, _Memos = Memos}) {
     if (isLoggedIn)
         return <_Memos memos={memos} onDelete={deleteMemo}/>
     else
-        return <div className={'mt-3'}>
+        return <div className={'d-flex justify-content-center'}>
             <_Login onLogin={handleLogin}/>
         </div>
 }
