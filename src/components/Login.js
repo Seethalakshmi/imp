@@ -2,7 +2,7 @@
 //    properties that are passed into this
 //    component
 import {useState} from "react";
-import {Button, Form} from "react-bootstrap";
+import {Button, Card, Form, Row} from "react-bootstrap";
 
 function Login(properties) {
     const [username, setUsername] = useState('')
@@ -20,18 +20,28 @@ function Login(properties) {
         setPassword(event.target.value)
     }
 
-    return <Form>
-        <Form.Group>
-            <Form.Control type='text' placeholder='Username' onChange={onUsernameChange}></Form.Control>
-        </Form.Group>
+    return <Card>
+        <Card.Header className={'text-center'}>
+            <h3>Login</h3>
+        </Card.Header>
+        <Card.Body>
+            <Form>
+                <Form.Group className={'m-1'}>
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control type='text' placeholder='Username' onChange={onUsernameChange}></Form.Control>
+                </Form.Group>
 
-        <Form.Group>
-            <Form.Control type='text' placeholder='Password' onChange={onPasswordChange}></Form.Control>
-        </Form.Group>
+                <Form.Group className={'m-1'}>
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type='text' placeholder='Password' onChange={onPasswordChange}></Form.Control>
+                </Form.Group>
 
-        {/*<button onClick={sendCredentials}>Login</button>*/}
-        <Button variant={"primary"} onClick={sendCredentials}>Login</Button>
-    </Form>
+                <Row className={'p-3'}>
+                    <Button variant={"primary"} onClick={sendCredentials}>Submit</Button>
+                </Row>
+            </Form>
+        </Card.Body>
+    </Card>
 }
 
 export default Login
