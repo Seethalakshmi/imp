@@ -1,7 +1,7 @@
 // Display a single memo
-import {Badge, Button, Card, Col, Row} from "react-bootstrap";
+import {Badge, Button, Card} from "react-bootstrap";
 
-export default function Memo({memo, onDelete}) {
+export default function Memo({memo, onDelete, onEdit}) {
     const {id, title, date, description, complete} = memo
     return <Card>
         <Card.Header>
@@ -18,6 +18,7 @@ export default function Memo({memo, onDelete}) {
         <Card.Footer>
             <div className={'d-flex justify-content-between'}>
                 <Button variant={"outline-danger"} onClick={() => onDelete(id)}>Delete</Button>
+                <Button variant={"outline-primary"} onClick={() => onEdit(memo)}>Edit</Button>
                 <Badge bg={complete ? 'secondary' : 'success'} className={'d-flex flex-column justify-content-center w-25'}>
                     {complete ? 'Complete' : 'To Do'}
                 </Badge>

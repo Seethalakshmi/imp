@@ -11,6 +11,7 @@ export default function EditMemo({memo, onCancel, onApply}) {
 
     function handleApply() {
         onApply({
+            id: memo.id,
             title: newTitle,
             description: newDescription,
             date: new Date(newDate),

@@ -2,7 +2,7 @@ import './App.css';
 import {useState} from "react";
 import Login from "./components/Login";
 import Memos from "./components/Memos";
-import {Col, Row} from "react-bootstrap";
+import EditMemo from "./components/EditMemo";
 
 // All 'Functional React Components' are render functions
 // This function is called every time we want to render our
@@ -29,6 +29,7 @@ export function App({loggedInInit = false, _Login = Login, _Memos = Memos}) {
         {id: 2, title: 'Title 3', date: new Date(), description: 'Desc 3', complete: true}
     ])
     const [isLoggedIn, setIsLoggedIn] = useState(loggedInInit)
+    const [memoToEdit, setMemoToEdit] = useState(undefined)
 
     // In order to delete, we need to remove a specific element from
     //     our memos state
@@ -46,10 +47,34 @@ export function App({loggedInInit = false, _Login = Login, _Memos = Memos}) {
             setIsLoggedIn(true)
     }
 
+    function editMemo(memo) {
+        setMemoToEdit(memo)
+    }
+
+    function cancelEditMemo() {
+        setMemoToEdit(undefined)
+    }
+
+    function applyEditMemo(memo) {
+        console.log(memo)
+        console.log(memos)
+        const newMemos = memos.map(existing =>
+            existing.id === memo.id ? memo : existing)
+        console.log(newMemos)
+        setMemos(newMemos)
+        setMemoToEdit(undefined)
+    }
+
     if (isLoggedIn)
-        return <div>
-            <_Memos memos={memos} onDelete={deleteMemo}/>
-        </div>
+        if (memoToEdit)
+            return <div>
+                <EditMemo memo={memoToEdit} onCancel={cancelEditMemo}
+                          onApply={applyEditMemo}/>
+            </div>
+        else
+            return <div>
+                <_Memos memos={memos} onDelete={deleteMemo} onEdit={editMemo}/>
+            </div>
     else
         return <div className={'d-flex justify-content-center'}>
             <_Login onLogin={handleLogin}/>

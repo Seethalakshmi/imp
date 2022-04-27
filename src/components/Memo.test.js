@@ -37,3 +37,31 @@ test('should show title, date, description, and not complete (badge should be gr
     const badgeElement = screen.getByText('To Do');
     expect(badgeElement).toHaveClass('bg-success');
 })
+
+it('should show an edit button', () => {
+    const memo = {
+        id: 0,
+        title: '',
+        date: new Date(),
+        description: '',
+        complete: false
+    }
+
+    render(<Memo memo={memo}/>)
+    expect(screen.getByRole('button', {name: 'Edit'})).toBeInTheDocument()
+})
+
+it('should call onEdit when the edit button is clicked', () => {
+    const memo = {
+        id: 0,
+        title: '',
+        date: new Date(),
+        description: '',
+        complete: false
+    }
+
+    const mock = jest.fn()
+    render(<Memo memo={memo} onEdit={mock}/>)
+    screen.getByText('Edit').click()
+    expect(mock).toHaveBeenCalledWith(memo)
+})
