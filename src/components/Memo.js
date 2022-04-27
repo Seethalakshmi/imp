@@ -3,7 +3,7 @@ import {Badge, Button, Card, Col, Row} from "react-bootstrap";
 
 export default function Memo({memo, onDelete}) {
     const {id, title, date, description, complete} = memo
-    return <Card className={'test'}>
+    return <Card>
         <Card.Header>
             <h3 className={'d-flex justify-content-between'}>
                 {title}
