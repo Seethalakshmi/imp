@@ -1,8 +1,9 @@
 import './App.css';
-import {useState} from "react";
 import Login from "./components/Login";
 import Memos from "./components/Memos";
 import EditMemo from "./components/EditMemo";
+import {useDispatch, useSelector} from "react-redux";
+import {APPLY_EDIT_MEMO, CANCEL_MEMO, DELETE_MEMO, EDIT_MEMO, LOGIN, LOGOUT} from "./modules/memos";
 
 // dux pattern
 
@@ -21,50 +22,33 @@ import EditMemo from "./components/EditMemo";
 //    d. complete/not-complete
 // 3. Authenticate the user
 export function App({loggedInInit = false, _Login = Login, _Memos = Memos}) {
-    // useState returns an array with 2 elements
-    // The first element is the current value
-    // The second element is a function that we can call
-    //    to update the value
-    const [memos, setMemos] = useState([
-        {id: 0, title: 'Title 1', date: new Date(), description: 'Desc 1', complete: false},
-        {id: 1, title: 'Title 2', date: new Date(), description: 'Desc 2', complete: true},
-        {id: 2, title: 'Title 3', date: new Date(), description: 'Desc 3', complete: true}
-    ])
-    const [isLoggedIn, setIsLoggedIn] = useState(loggedInInit)
-    const [memoToEdit, setMemoToEdit] = useState(undefined)
+    const dispatch = useDispatch()
+    const isLoggedIn = useSelector(state => state.isLoggedIn)
+    const memos = useSelector(state => state.memos)
+    const memoToEdit = useSelector(state => state.memoToEdit)
 
-    // In order to delete, we need to remove a specific element from
-    //     our memos state
-    // we need to rerender
-
-    // Take some identifier and use that ID to delete the memo
     function deleteMemo(memoID) {
-        const newMemos = memos.filter(memo => memo.id !== memoID)
-        setMemos(newMemos)
+        dispatch({type: DELETE_MEMO, id: memoID})
     }
 
     function handleLogin(credentials) {
-        if (credentials.username === 'madison' &&
-            credentials.password === 'mypass')
-            setIsLoggedIn(true)
+        dispatch({type: LOGIN, credentials})
+    }
+
+    function handleLogout() {
+        dispatch({type: LOGOUT})
     }
 
     function editMemo(memo) {
-        setMemoToEdit(memo)
+        dispatch({type: EDIT_MEMO, memo})
     }
 
     function cancelEditMemo() {
-        setMemoToEdit(undefined)
+        dispatch({type: CANCEL_MEMO})
     }
 
     function applyEditMemo(memo) {
-        console.log(memo)
-        console.log(memos)
-        const newMemos = memos.map(existing =>
-            existing.id === memo.id ? memo : existing)
-        console.log(newMemos)
-        setMemos(newMemos)
-        setMemoToEdit(undefined)
+        dispatch({type: APPLY_EDIT_MEMO})
     }
 
     if (isLoggedIn)
