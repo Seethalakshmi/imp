@@ -3,6 +3,7 @@ export const LOGIN = 'memos/LOGIN'
 export const LOGOUT = 'memos/LOGOUT'
 export const ADD_MEMO = 'memos/ADD_MEMO'
 export const DELETE_MEMO = 'memos/DELETE_MEMO'
+export const EDIT_MEMO = 'memos/EDIT_MEMO'
 
 // a reducer is a function that transitions the current state
 //    to the next, given an action
@@ -41,6 +42,12 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 memos: state.memos.filter(memo => memo.id !== action.id)
+            }
+
+        case EDIT_MEMO:
+            return {
+                ...state,
+                memos: state.memos.map(memo => memo.id === action.memo.id ? action.memo : memo)
             }
 
         default:
