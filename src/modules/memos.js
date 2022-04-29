@@ -23,7 +23,8 @@ export default function reducer(state = initialState, action) {
         case LOGIN:
             return {
                 ...state,
-                isLoggedIn: true
+                isLoggedIn: action.credentials.username === 'madison' &&
+                    action.credentials.password === 'mypass'
             }
 
         case LOGOUT:
