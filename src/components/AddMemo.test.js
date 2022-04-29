@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import {ADD_MEMO} from "../modules/memos";
 
 test('should show input fields for each key in memo', () => {
-    render(<AddMemo/>)
+    render(<AddMemo _useDispatch={() => {}}/>)
     expect(screen.getByPlaceholderText('Title')).toBeInTheDocument()
     expect(screen.getByPlaceholderText('Description')).toBeInTheDocument()
     expect(screen.getByPlaceholderText('Date')).toBeInTheDocument()

@@ -10,7 +10,7 @@ import {App} from './App';
 // Ecma Script is a combination of JS and JSX
 
 // Is this a unit test? no, it is a units test
-test('should display the counter component when logged in', () => {
+test('should display _Memos when logged in', () => {
   let _memos = undefined
   let _onDelete = undefined
   const expectedText = 'This is the expected text'
@@ -24,9 +24,17 @@ test('should display the counter component when logged in', () => {
   const noText = 'NONONO'
   const nonono = () => <>{noText}</>
 
-  render(<App loggedInInit={true} _Memos={mock} _Login={nonono}/>);
-  const h1 = screen.getByText(expectedText)
-  expect(h1).toBeInTheDocument()
+  const state = {
+    isLoggedIn: true,
+    memos: {}
+  }
+
+  function useSelector(selectorFn) {
+    return selectorFn(state)
+  }
+
+  render(<App _Memos={mock} _Login={nonono} _useDispatch={() => {}} _useSelector={useSelector}/>)
+  expect(screen.getByText(expectedText)).toBeInTheDocument()
   expect(typeof _memos).toBe('object')
   expect(screen.queryByText(noText)).not.toBeInTheDocument()
   expect(typeof _onDelete).toBe('function')
@@ -38,9 +46,17 @@ test('should display the login screen when logged out', () => {
   const mockLogin = () => <>{expectedText}</>
   const noText = 'NONONO'
   const nonono = () => <>{noText}</>
-  render(<App _Login={mockLogin} _Memos={nonono}/>);
-  const element = screen.getByText(expectedText);
-  expect(element).toBeInTheDocument();
+
+  const state = {
+    isLoggedIn: false
+  }
+
+  function useSelector(selectorFn) {
+    return selectorFn(state)
+  }
+
+  render(<App _Login={mockLogin} _Memos={nonono} _useDispatch={() => {}} _useSelector={useSelector}/>)
+  expect(screen.getByText(expectedText)).toBeInTheDocument()
   expect(screen.queryByText(noText)).not.toBeInTheDocument()
 });
 
@@ -51,6 +67,14 @@ it('should pass an onEdit function as a property to Memos', () => {
     _onEdit = onEdit
   }
 
-  render(<App loggedInInit={true} _Memos={Memos}/>)
+  const state = {
+    isLoggedIn: true
+  }
+
+  function useSelector(selectorFn) {
+    return selectorFn(state)
+  }
+
+  render(<App loggedInInit={true} _Memos={Memos} _useDispatch={() => {}} _useSelector={useSelector}/>)
   expect(typeof _onEdit).toBe('function')
 })
