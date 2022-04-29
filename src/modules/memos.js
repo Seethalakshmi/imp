@@ -1,6 +1,7 @@
 //actions
 export const LOGIN = 'memos/LOGIN'
 export const LOGOUT = 'memos/LOGOUT'
+export const ADD_MEMO = 'memos/ADD_MEMO'
 
 // a reducer is a function that transitions the current state
 //    to the next, given an action
@@ -11,11 +12,12 @@ export const LOGOUT = 'memos/LOGOUT'
 // If you apply the CLOSE action
 // the reducer will set the door's state to closed.
 const initialState = {
-    isLoggedIn: false
+    isLoggedIn: false,
+    memos: []
 }
 
 export default function reducer(state = initialState, action) {
-    switch (action) {
+    switch (action?.type) {
         case LOGIN:
             return {
                 ...state,
@@ -26,6 +28,12 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 isLoggedIn: false
+            }
+
+        case ADD_MEMO:
+            return {
+                ...state,
+                memos: [...state.memos, action.memo]
             }
 
         default:
