@@ -1,4 +1,4 @@
-import reducer, {ADD_MEMO, LOGIN, LOGOUT} from "./memos";
+import reducer, {ADD_MEMO, DELETE_MEMO, LOGIN, LOGOUT} from "./memos";
 
 it('should initialed with isLoggedIn false', () => {
     const state = reducer()
@@ -29,4 +29,18 @@ it('should add a memo when ADD_MEMO action is performed', () => {
     currentState.memos = existing
     const state = reducer(currentState, {type: ADD_MEMO, memo})
     expect(state.memos).toStrictEqual([...existing, memo])
+})
+
+it('should remove a memo when DELETE_MEMO is performed', () => {
+    const currentState = reducer()
+    currentState.memos = [
+        {id: 0, title: 'memo1'},
+        {id: 1, title: 'memo2'},
+        {id: 2, title: 'memo3'}
+    ]
+    const state = reducer(currentState, {type: DELETE_MEMO, id: 1})
+    expect(state.memos).toStrictEqual([
+        {id: 0, title: 'memo1'},
+        {id: 2, title: 'memo3'}
+    ])
 })
