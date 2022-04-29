@@ -4,6 +4,8 @@ export const LOGOUT = 'memos/LOGOUT'
 export const ADD_MEMO = 'memos/ADD_MEMO'
 export const DELETE_MEMO = 'memos/DELETE_MEMO'
 export const EDIT_MEMO = 'memos/EDIT_MEMO'
+export const APPLY_EDIT_MEMO = 'memos/APPLY_EDIT_MEMO'
+export const CANCEL_MEMO = 'memos/CANCEL_MEMO'
 
 // a reducer is a function that transitions the current state
 //    to the next, given an action
@@ -15,7 +17,8 @@ export const EDIT_MEMO = 'memos/EDIT_MEMO'
 // the reducer will set the door's state to closed.
 const initialState = {
     isLoggedIn: false,
-    memos: []
+    memos: [],
+    memoToEdit: null
 }
 
 export default function reducer(state = initialState, action) {
@@ -48,7 +51,20 @@ export default function reducer(state = initialState, action) {
         case EDIT_MEMO:
             return {
                 ...state,
-                memos: state.memos.map(memo => memo.id === action.memo.id ? action.memo : memo)
+                memoToEdit: action.memo
+            }
+
+        case APPLY_EDIT_MEMO:
+            return {
+                ...state,
+                memos: state.memos.map(memo => memo.id === state.memoToEdit.id ? state.memoToEdit : memo),
+                memoToEdit: null
+            }
+
+        case CANCEL_MEMO:
+            return {
+                ...state,
+                memoToEdit: null
             }
 
         default:
